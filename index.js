@@ -286,15 +286,37 @@ app.get('/pokemon/:id', (request, response) => {
 // display pokemon (from button)
 app.put('/pokemon/:id', (request, response) => {
 
-  response.send("hello");
+  if( request.cookies['logged_in'] !== 'true' ){
+    response.send('Not authorized to enter without logging in.')
+  };
 
+  let inputId = request.params.id;
+
+  let userId = request.cookies['user_id'];
+
+  let userId0 = 0;
+
+  const queryString = 'SELECT * FROM pokemon WHERE id = $1 AND (user_id = $2 OR user_id = $3)';
+
+  let values = [inputId, userId, userId0];
+
+  pool.query(queryString, values, (err, queryResult) => {
+
+    if (err) {
+      response.status(500).send('error 7: ' + err.message);
+    } else {
+      if (queryResult.rows.length > 0) {
+
+        const pokemon = queryResult.rows[0];
+
+          response.render('showPokemon', pokemon)
+      } else {
+          response.send("Pokemon Not Found.")
+      }
+    }
+
+  });
 });
-
-// app.post('/pokemon/:id', (request, response) => {
-
-//   response.redirect('/pokemon')
-
-// });
 
 // edit pokemon
 app.get('/pokemon/:id/edit', (request, response) => {

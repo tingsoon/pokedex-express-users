@@ -41,7 +41,7 @@ class Home extends React.Component {
 	  			</div>
           <p></p>
           <div>
-            <form className="goToPokemon" method="POST" action={'/pokemon/{pokemon.id}?_method=PUT'}>
+            <form className="goToPokemon" method="POST" action={'/pokemon/'+pokemon.id+'?_method=PUT'}>
                 <input type="hidden" name="goToPokemon" />
                 <div className="buttonDiv">
                     <input className="goToPokemon" type="submit" value="Go To Pokemon" />
