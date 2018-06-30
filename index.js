@@ -168,15 +168,22 @@ app.put('/pokemon/sortId', (request, response) => {
 });
 
 // display all pokemon by name
-app.get('/pokemon/name', (req, response) => {
+app.get('/pokemon/name', (request, response) => {
   // query database for all pokemon
 
   // respond with HTML page displaying all pokemon
 
-  let queryString = 'SELECT * FROM pokemon ORDER BY name ASC';
+  let userId = request.cookies['user_id'];
+
+  let userId0 = 0;
+  // respond with HTML page displaying all pokemon
+
+  let queryString = 'SELECT * FROM pokemon WHERE (user_id = $1 OR user_id = $2) ORDER BY name ASC';
+
+  const values = [userId, userId0];
 
   // gather data from postgres
-  pool.query(queryString, (err, result) => {
+  pool.query(queryString, values, (err, result) => {
 
     let pokeData = result.rows;
 
@@ -240,9 +247,13 @@ app.get('/pokemon/:id', (request, response) => {
 
   let inputId = request.params.id;
 
-  const queryString = 'SELECT * FROM pokemon WHERE id = $1';
+  let userId = request.cookies['user_id'];
 
-  let values = [inputId];
+  let userId0 = 0;
+
+  const queryString = 'SELECT * FROM pokemon WHERE id = $1 AND (user_id = $2 OR user_id = $3)';
+
+  let values = [inputId, userId, userId0];
 
   pool.query(queryString, values, (err, queryResult) => {
 
@@ -254,6 +265,8 @@ app.get('/pokemon/:id', (request, response) => {
         const pokemon = queryResult.rows[0];
 
           response.render('showPokemon', pokemon)
+      } else {
+          response.send("Pokemon Not Found.")
       }
     }
 
