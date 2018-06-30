@@ -4,7 +4,7 @@ const FILE = 'pokedex.json';
 // REMEMBER TO CHANGE YOUR CONFIGS BEFORE RUNNING THIS SCRIPT!!
 const pg = require('pg');
 const config = {
-	user: 'ck',
+	user: 'angtingsoon',
 	host: '127.0.0.1',
 	database: 'pokemons',
 	port: '5432'
@@ -35,11 +35,12 @@ jsonfile.readFile(FILE, (fileReadError, obj)=>{
 				console.log('Connected to database.');
 
 				let pokemons = obj.pokemon;
-				let text = 'INSERT INTO pokemon (name, num, img, weight, height) ' + ' VALUES($1, $2, $3, $4, $5) RETURNING *';
+				let text = 'INSERT INTO pokemon (name, num, img, weight, height, user_id) ' + ' VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
 				let values = null;
+				let zero = 0;
 
 				pokemons.forEach((pokemon) => {
-					values = [pokemon.name, pokemon.num, pokemon.img, pokemon.weight, pokemon.height];
+					values = [pokemon.name, pokemon.num, pokemon.img, pokemon.weight, pokemon.height, zero];
 					
 					client.query(text, values, (dbQueryError, result) => {
 						if (dbQueryError) {
