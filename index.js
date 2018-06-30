@@ -169,9 +169,10 @@ app.put('/pokemon/sortId', (request, response) => {
 
 // display all pokemon by name
 app.get('/pokemon/name', (request, response) => {
-  // query database for all pokemon
 
-  // respond with HTML page displaying all pokemon
+  if( request.cookies['logged_in'] !== 'true' ){
+    response.send('Not authorized to enter without logging in.')
+  };
 
   let userId = request.cookies['user_id'];
 
@@ -214,8 +215,13 @@ app.delete('/users/logout', (req, response) => {
 
 // add new pokemon
 app.get('/pokemon/new', (request, response) => {
+
+  if( request.cookies['logged_in'] !== 'true' ){
+    response.send('Not authorized to enter without logging in.')
+  } else {
   // respond with HTML page with form to create new pokemon
   response.render('addPokemon');
+  ;}
 });
 
 app.post('/pokemon/new', (request, response) => {
@@ -244,6 +250,10 @@ app.post('/pokemon/new', (request, response) => {
 
 // display pokemon (type in address)
 app.get('/pokemon/:id', (request, response) => {
+
+  if( request.cookies['logged_in'] !== 'true' ){
+    response.send('Not authorized to enter without logging in.')
+  };
 
   let inputId = request.params.id;
 
@@ -280,16 +290,20 @@ app.put('/pokemon/:id', (request, response) => {
 
 });
 
-app.post('/pokemon/:id', (request, response) => {
+// app.post('/pokemon/:id', (request, response) => {
 
-  response.redirect('/pokemon')
+//   response.redirect('/pokemon')
 
-});
+// });
 
 // edit pokemon
 app.get('/pokemon/:id/edit', (request, response) => {
 
   let pokemonIndex = parseInt(request.params.id);
+
+  if( request.cookies['logged_in'] !== 'true' ){
+    response.send('Not authorized to enter without logging in.')
+  };
 
   response.render('editPokemon', {id: pokemonIndex});
 
@@ -353,7 +367,10 @@ app.get('/pokemon', (request, response) => {
   let userId = request.cookies['user_id'];
 
   let userId0 = 0;
-  // respond with HTML page displaying all pokemon
+
+  if( request.cookies['logged_in'] !== 'true' ){
+    response.send('Not authorized to enter without logging in.')
+  };
 
   let queryString = 'SELECT * FROM pokemon WHERE (user_id = $1 OR user_id = $2)';
 
