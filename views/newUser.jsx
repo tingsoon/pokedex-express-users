@@ -3,9 +3,16 @@ var LayoutContainer = require('./layout.jsx');
 
 class NewUser extends React.Component {
   render() {
+
+  	const newUserStyle = {
+  		textAlign: 'center',
+	    top: '250px',
+	    position: 'relative'
+  	};
+
     return (
     	<LayoutContainer>
-	    	<div>
+	    	<div style={newUserStyle}>
 	    		<h1>Create New User</h1>
 	    		<form action="/users/new" method="POST">
 	    			<input name="email" type="text" placeholder="email" />

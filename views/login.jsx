@@ -3,11 +3,23 @@ var LayoutContainer = require('./layout.jsx');
 
 class Login extends React.Component {
   render() {
+
+  	var imgUrl = '../wallpaper.jpg';
+
+  	const loginStyle = {
+  		textAlign: 'center',
+	    position: 'relative',
+	    backgroundImage: 'url("' + imgUrl + '")',
+	    width: '100%',
+	    top: '250px'
+  	};
+
     return (
     	<LayoutContainer>
-	    	<div>
+	    	<div style={loginStyle}>
 	    		<div>
-		    		<h1>LOGIN</h1>
+		    		<h1>Login to access Pokédex</h1>
+		    		<p></p>
 		    		<form action="/users/login" method="POST">
 		    			<input name="email" type="text" placeholder="email" />
 		    			<input name="password" type="text" placeholder="password"/>

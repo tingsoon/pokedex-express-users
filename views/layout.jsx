@@ -3,10 +3,16 @@ var React = require('react');
 class LayoutContainer extends React.Component {
   render() {
 
-    var imgUrl = 'wallpaper.png';
+    // var imgUrl = 'wallpaper.jpg';
 
     // const bodyStyle = {
-    //   backgroundImage: 'url("' + imgUrl + '")'
+    //   backgroundImage: 'url("' + imgUrl + '")',
+    //   minheight: '100%',
+    //   minwidth: '1024px',
+    //   width: '100%',
+    //   height: 'auto',
+    //   top: '0',
+    //   left: '0'
     // }
 
   	return ( 

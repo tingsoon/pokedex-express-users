@@ -422,7 +422,13 @@ app.get('/pokemon', (request, response) => {
 // first page to user login page
 app.get('', (request, response) => {
 
-  response.redirect('/users/login')
+  response.redirect('/users/login');
+
+});
+
+app.get('/*', (request, response) => {
+
+  response.redirect('/users/login');
 
 });
 

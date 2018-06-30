@@ -43,7 +43,7 @@ class ShowPokemon extends React.Component {
 		            <form className="home" method="POST" action="/pokemon/sortId?_method=PUT">
                       <input type="hidden" name="home" />
                       <div className="buttonDiv">
-                          <input className="Home" type="submit" value="Go Back to Pokedex." />
+                          <input className="Home" type="submit" value="Go Back to Pokedex" />
                       </div>
                   	</form>
 		        </div>
